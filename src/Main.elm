@@ -1,7 +1,14 @@
+{-
+   This modulue describes the overarching view reponsible
+   for rendering the entire home page of the storefront
+-}
+
+
 module Main exposing (..)
 
 import Html exposing (Html)
 import Time exposing (Time, second)
+import ImageGallery as ImG
 
 
 main =
@@ -67,4 +74,30 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    Html.div [] [ Html.text (model.username ++ model.password ++ (toString model.time)) ]
+    Html.div
+        []
+        [ Html.nav
+            []
+            [ Html.div
+                []
+                [ Html.text "Home" ]
+            , Html.div
+                []
+                [ Html.text "Baked Goods" ]
+            , Html.div
+                []
+                [ Html.text "Cart" ]
+            , Html.div
+                []
+                [ Html.text "About" ]
+            , Html.div
+                []
+                [ Html.text "Login" ]
+            ]
+        , Html.section
+            []
+            []
+        , Html.section
+            []
+            []
+        ]
