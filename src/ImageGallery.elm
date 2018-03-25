@@ -26,18 +26,21 @@ main =
 
 type alias Model =
     { time : Time
-    , imageUrl : String
+    , images : List String
     }
 
 
-placeholderImage : String
-placeholderImage =
-    "https://www.logobarproducts.com/media/catalog/product/cache/4/image/9df78eab33525d08d6e5fb8d27136e95/c/u/custom-pik-square-foam-coasters-logo-designer.jpg"
+images : List String
+images =
+    [ "https://www.logobarproducts.com/media/catalog/product/cache/4/image/9df78eab33525d08d6e5fb8d27136e95/c/u/custom-pik-square-foam-coasters-logo-designer.jpg"
+    , "https://www.easycalculation.com/area/images/big-square.gif"
+    , "https://cdn.shopify.com/s/files/1/0492/2329/products/blank-red-square-sign.png?v=1478004215"
+    ]
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model 0.0 placeholderImage, Cmd.none )
+    ( Model 0.0 images, Cmd.none )
 
 
 
@@ -50,15 +53,32 @@ type Msg
 
 interval : Float
 interval =
-    10000
+    14990
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick newTime ->
-            if (newTime - model.time > interval) then
-                ( { model | time = newTime }, Cmd.none )
+            if (newTime - model.time >= interval) then
+                let
+                    newImages =
+                        case List.tail model.images of
+                            Just [] ->
+                                images
+
+                            Just urls ->
+                                urls
+
+                            Nothing ->
+                                images
+                in
+                    ( { model
+                        | time = newTime
+                        , images = newImages
+                      }
+                    , Cmd.none
+                    )
             else
                 ( model, Cmd.none )
 
@@ -84,7 +104,17 @@ view model =
         , Html.div
             []
             [ Html.img
-                [ Att.src model.imageUrl ]
+                [ Att.src
+                    (case List.head model.images of
+                        Just url ->
+                            url
+
+                        Nothing ->
+                            " "
+                    )
+                , Att.width 200
+                , Att.height 200
+                ]
                 []
             ]
         ]
