@@ -1,0 +1,9 @@
+{
+  "name": "store-front",
+  "version": "1.0.0",
+  "description": "\"Development of basic storefront application using Elm-lang\"",
+  "main": "index.js",
+  "repository": "https://github.com/chenhowa/cookie-storefront.git",
+  "author": "Howard Chen <H_Chen@alumni.baylor.edu>",
+  "license": "MIT"
+}
